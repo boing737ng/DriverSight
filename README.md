@@ -18,6 +18,18 @@
 - **T1068:** Exploitation for Privilege Escalation
 - **T1562.001:** Impair Defenses: Disable or Modify Tools
 
+---
+
+## ⚠️ Отказ от ответственности / Disclaimer
+
+### Russian
+
+Данный инструмент разработан исключительно для образовательных целей и проведения **санкционированного аудита безопасности** (Red Teaming). Автор не поощряет незаконную деятельность и не несет ответственности за любой прямой или косвенный ущерб, причиненный в результате использования DriverSight. Использование программы против целей без предварительного письменного согласия владельца инфраструктуры является незаконным и преследуется по закону (Глава 28 УК РФ).
+
+### English
+
+This tool is for educational and authorized security auditing purposes only. Use of DriverSight against any target without prior written consent is illegal. The author assumes no liability and is not responsible for any misuse or damage caused by this program. Compliance with all applicable local, state, and federal laws is the sole responsibility of the user.
+
 ## 🚀 Быстрый старт
 
 ### Установка
