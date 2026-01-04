@@ -4,7 +4,6 @@ import os
 
 
 class DatabaseUpdater:
-    # Официальный API проекта LOLDrivers
     SOURCE_URL = "https://loldrivers.io/api/drivers.json"
 
     def __init__(self, db_path):
@@ -22,19 +21,16 @@ class DatabaseUpdater:
             new_db = {}
             count = 0
 
-            # LOLDrivers отдает список объектов. Нам нужно проиндексировать их по ХЕШУ
-            # для мгновенного поиска в анализаторе.
+
             for entry in raw_data:
                 name = entry.get("Name", "Unknown")
                 vuln_type = entry.get("Category", "Vulnerable Driver")
 
-                # Собираем все известные хеши для этого драйвера
                 samples = entry.get("KnownVulnerableSamples", [])
                 for sample in samples:
                     sha256 = sample.get("SHA256")
                     if sha256:
                         sha256 = sha256.lower()
-                        # Формируем наш формат записи
                         new_db[sha256] = {
                             "name": name,
                             "type": vuln_type,
@@ -43,7 +39,6 @@ class DatabaseUpdater:
                         }
                         count += 1
 
-            # Сохраняем обновленную базу
             os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
             with open(self.db_path, "w", encoding="utf-8") as f:
                 json.dump(new_db, f, indent=4)

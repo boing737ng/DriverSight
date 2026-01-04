@@ -1,25 +1,31 @@
 class DriverAnalyzer:
     def __init__(self, database):
-        self.db = database  # Загруженный JSON
+        self.db = database
 
     def evaluate(self, driver_path, file_hash):
-        """Сверка хеша и присвоение рейтинга опасности."""
         match = self.db.get(file_hash)
         if not match:
             return None
 
-        # Логика скоринга (Red Team Priority)
-        # 10 - Позволяет полное управление ядром (R/W)
-        # 5  - Позволяет только чтение или DoS
-        severity = match.get("severity", 5)
+        raw_severity = match.get("severity", 5)
+        vuln_type = match.get("type", "Unknown Vulnerability").lower()
 
-        result = {
+        priority = raw_severity
+        if "write" in vuln_type:
+            priority = 10
+        elif "read" in vuln_type:
+            priority = 8
+        elif "leak" in vuln_type:
+            priority = 6
+
+        return {
             "path": driver_path,
             "hash": file_hash,
-            "name": match.get("name"),
-            "vuln_type": match.get("type"),  # Например: "Arbitrary Kernel Write"
-            "priority": severity,
-            "exploit_url": match.get("exploit"),  # Ссылка на PoC
-            "action": "Use for EDR Evasion" if severity >= 8 else "Limited use",
+            "name": match.get("name", "Unknown Driver"),
+            "vuln_type": match.get("type", "Vulnerable Driver"),
+            "priority": priority,
+            "exploit_url": match.get("exploit", "https://loldrivers.io/"),
+            "action": "Critical: Immediate removal required"
+            if priority >= 9
+            else "High: Monitor/Disable",
         }
-        return result
