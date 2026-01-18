@@ -4,15 +4,15 @@ from rich.panel import Panel
 console = Console()
 
 BANNER = """
-[bold red]
+[bold cyan]
  ██████╗ ██████╗ ██╗██╗   ██╗███████╗██████╗ ███████╗██╗ ██████╗ ██╗  ██╗████████╗
  ██╔══██╗██╔══██╗██║██║   ██║██╔════╝██╔══██╗██╔════╝██║██╔════╝ ██║  ██║╚══██╔══╝
  ██║  ██║██████╔╝██║██║   ██║█████╗  ██████╔╝███████╗██║██║  ███╗███████║   ██║   
  ██║  ██║██╔══██╗██║╚██╗ ██╔╝██╔══╝  ██╔══██╗╚════██║██║██║   ██║██╔══██║   ██║   
  ██████╔╝██║  ██║██║ ╚████╔╝ ███████╗██║  ██║███████║██║╚██████╔╝██║  ██║   ██║   
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-[/bold red]
-[bold white]   v1.2 | Advanced Kernel Attack Surface Auditor | Built for Red Team[/bold white]
+[/bold cyan]
+[bold white]   v1.2 | Kernel Attack Surface Auditor | Built for Cyber Defense & IT Audit[/bold white]
 """
 
 
