@@ -21,21 +21,33 @@ class DatabaseUpdater:
             new_db = {}
             count = 0
 
-
             for entry in raw_data:
-                name = entry.get("Name", "Unknown")
-                vuln_type = entry.get("Category", "Vulnerable Driver")
+                name = entry.get("Name") or entry.get("name")
+                if not name:
+                    name = entry.get("Id") or entry.get("id") or "Unknown Driver"
 
-                samples = entry.get("KnownVulnerableSamples", [])
+                vuln_type = (
+                    entry.get("Category")
+                    or entry.get("category")
+                    or "Vulnerable Driver"
+                )
+
+                samples = entry.get("KnownVulnerableSamples", []) or entry.get(
+                    "knownvulnerablesamples", []
+                )
+
                 for sample in samples:
-                    sha256 = sample.get("SHA256")
+                    sha256 = sample.get("SHA256") or sample.get("sha256")
                     if sha256:
                         sha256 = sha256.lower()
+                        filename = sample.get("Filename") or sample.get("filename")
+                        display_name = filename if filename else name
+
                         new_db[sha256] = {
-                            "name": name,
+                            "name": display_name,
                             "type": vuln_type,
-                            "severity": 10 if vuln_type == "Malware" else 8,
-                            "exploit": f"https://loldrivers.io/drivers/{entry.get('Id')}/",
+                            "severity": 10 if vuln_type.lower() == "malware" else 8,
+                            "exploit": f"https://loldrivers.io/drivers/{entry.get('Id', entry.get('id', ''))}/",
                         }
                         count += 1
 

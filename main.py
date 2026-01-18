@@ -85,6 +85,5 @@ def main():
     except Exception as e:
         print_error(f"Scan interrupted: {str(e)}")
 
-
 if __name__ == "__main__":
     main()
