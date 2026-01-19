@@ -12,15 +12,32 @@ class DriverSightReporter:
         self.findings = sorted(findings, key=lambda x: x["priority"], reverse=True)
         self.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def report_to_console(self):
-        """Вывод результатов аудита в консоль (Blue Team style)."""
+    def report_to_console(self, duration=0, total_scanned=0):
+        """Вывод результатов аудита в консоль с метриками времени."""
+
+        # Расчет среднего времени (в миллисекундах, так как на один драйвер уходит очень мало)
+        avg_time = (duration / total_scanned * 1000) if total_scanned > 0 else 0
+
+        # Вывод метрик производительности
+        metrics_text = (
+            f"Общее время сканирования: [bold white]{duration:.2f} сек.[/bold white]\n"
+            f"Среднее время на модуль: [bold white]{avg_time:.2f} мс[/bold white]\n"
+            f"Всего проверено модулей: [bold white]{total_scanned}[/bold white]"
+        )
+        console.print(
+            Panel(
+                metrics_text,
+                title="[bold cyan]Performance Metrics[/bold cyan]",
+                border_style="bright_blue",
+                expand=False,
+            )
+        )
+
         if not self.findings:
             console.print(
                 Panel(
-                    "[bold green]✅ АУДИТ ЗАВЕРШЕН: СИСТЕМА СООТВЕТСТВУЕТ ТРЕБОВАНИЯМ[/bold green]\n"
-                    "[dim]Уязвимых модулей ядра, подлежащих немедленному удалению, не обнаружено.[/dim]",
+                    "[bold green]✅ АУДИТ ЗАВЕРШЕН: СИСТЕМА СООТВЕТСТВУЕТ ТРЕБОВАНИЯМ[/bold green]",
                     border_style="green",
-                    title="DriverSight Compliance Check",
                 )
             )
             return

@@ -72,18 +72,15 @@ def main():
         print_info(f"Using database: [dim]{db_path}[/dim]")
 
         engine = DriverSightEngine(db_path)
-        threats = engine.run_scan()
+        threats, duration, total_count = engine.run_scan()
 
         reporter = DriverSightReporter(threats)
-        reporter.report_to_console()
-
-        reporter.report_to_html("DS_Report.html")
-        print_success(
-            "Detailed audit report generated: [underline]DS_Report.html[/underline]"
-        )
+        reporter.report_to_console(duration, total_count)
+        reporter.report_to_html("DS_Audit_Report.html")
 
     except Exception as e:
         print_error(f"Scan interrupted: {str(e)}")
+
 
 if __name__ == "__main__":
     main()
