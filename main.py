@@ -69,14 +69,18 @@ def main():
         sys.exit(1)
 
     try:
-        print_info(f"Using database: [dim]{db_path}[/dim]")
+        print_info(f"Используемая база: [dim]{db_path}[/dim]")
 
         engine = DriverSightEngine(db_path)
         threats, duration, total_count = engine.run_scan()
 
         reporter = DriverSightReporter(threats)
         reporter.report_to_console(duration, total_count)
-        reporter.report_to_html("DS_Audit_Report.html")
+
+        report_name = reporter.report_to_html()
+        print_success(
+            f"Подробный технический отчет сохранен: [underline]{report_name}[/underline]"
+        )
 
     except Exception as e:
         print_error(f"Scan interrupted: {str(e)}")

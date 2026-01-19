@@ -12,12 +12,19 @@ BANNER = """
  ██████╔╝██║  ██║██║ ╚████╔╝ ███████╗██║  ██║███████║██║╚██████╔╝██║  ██║   ██║   
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
 [/bold cyan]
-[bold white]   v1.2 | Kernel Attack Surface Auditor | Built for Cyber Defense & IT Audit[/bold white]
+[bold white]   v1.2 | Поиск уязвимых драйверов | Инструмент ИБ-анализа[/bold white]
 """
 
 
 def print_banner():
     console.print(BANNER)
+    console.print(
+        Panel(
+            "[bold yellow]ПРЕДУПРЕЖДЕНИЕ:[/bold yellow] Инструмент предназначен для санкционированного аудита безопасности. \n"
+            "[dim]Используя программу, вы подтверждаете наличие прав на сканирование данной системы.[/dim]",
+            border_style="yellow",
+        )
+    )
 
 
 def print_error(text):
